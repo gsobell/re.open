@@ -1,11 +1,12 @@
 #!/bin/bash
 # quick translation of the python code from example
 # bindsym Ctrl+Shift+t exec re-open.sh >>  ~/.config/i3/config
+# --needed wmctrl
 
 get_apps(){
-
-ss -p | awk '{if (NR!=1) {print $7}}' | cut -d'"' -f2 | sort | uniq | awk '(NR>2)'#
-
+pid=(wmctrl -lp | awk '{print $3}' | rs -c' ' -C' ' -T)
+for app in $pid:
+        ps -o cmd= app 
 }
 
 set open_apps_1 = get_apps()
