@@ -8,11 +8,12 @@ ss -p | awk '{if (NR!=1) {print $7}}' | cut -d'"' -f2 | sort | uniq | awk '(NR>2
 
 }
 
-set open_apps_1 = get_apps()
+open_apps_1 = $(get_apps())
+echo "$open_apps_1"
 
-while : do
+while : ; do
         sleep 3
-        set open_apps_2 = get_apps()
+        open_apps_2 = $(get_apps())
         ${open_apps_1[@]} ${open_apps_2[@]} | tr ' ' '\n' | sort | uniq -u >> $XDG_CACHE_HOME/re_open/app_history
         closed_app=$( tail -n $XDG_CACHE_HOME/re_open/app_history)
         exec $closed_app
